@@ -1,0 +1,27 @@
+.footer {
+    background-color: #76ABAE;
+    margin-top: auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #000;
+    position: relative;
+
+    .segunda-columna {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+     }
+
+    svg {
+        width: 24px;
+        height: 24px;
+        margin-right: 0.5rem;
+    }
+
+    li {
+        list-style: none;
+    }
+}
