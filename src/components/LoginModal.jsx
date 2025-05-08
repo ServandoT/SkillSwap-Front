@@ -11,7 +11,7 @@ function LoginModal({ onClose }) {
     try {
       const payload = { email, password };
       console.log('Sending payload:', payload);
-      const response = await axios.post('http://localhost:1234/api/v1/auth/authenticate', payload, {
+      const response = await axios.post('http://172.189.57.88:1234/api/v1/auth/authenticate', payload, {
         headers: {
           Authorization: '',
           "Content-Type": "application/json",
