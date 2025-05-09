@@ -15,7 +15,7 @@ function RegisterModal({ onClose }) {
     try {
       // TODO cambiar la URL por localhost
       const response = await axios.post(
-        `http://172.189.57.88:1234/api/v1/auth/register`, 
+        `https://172.189.57.88:1234/api/v1/auth/register`, 
         {
         nombre,
         apellidos,
