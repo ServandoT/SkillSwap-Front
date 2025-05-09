@@ -17,7 +17,7 @@ function About() {
         </div>
 
         <section className='primera-seccion'>
-          <img src="../../public/cerebro.png" alt="cerebro" />
+          <img src="../../public/cerebro.jpg" alt="cerebro" />
 
           <div className='p-wrapper'>
             <p>SkillSwap es un espacio donde puedes aprender nuevas habilidades y enseñar lo que sabes sin necesidad de dinero. A través de un sistema de créditos, puedes impartir clases y ganar créditos para inscribirte en otras.</p>
