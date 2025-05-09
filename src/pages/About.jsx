@@ -17,7 +17,7 @@ function About() {
         </div>
 
         <section className='primera-seccion'>
-          <img src="../../public/cerebro.jpg" alt="cerebro" />
+          <img src="/cerebro.jpg" alt="cerebro" />
 
           <div className='p-wrapper'>
             <p>SkillSwap es un espacio donde puedes aprender nuevas habilidades y enseñar lo que sabes sin necesidad de dinero. A través de un sistema de créditos, puedes impartir clases y ganar créditos para inscribirte en otras.</p>
@@ -32,7 +32,7 @@ function About() {
             <li>Comparte tu conocimiento ofreciendo clases y gana más créditos.</li>
             <li>Aprende sin límites e intercambia habilidades con otros usuarios.</li>
           </ol>
-          <img src="../../public/networking.png" alt="networking" />
+          <img src="networking.png" alt="networking" />
         </section>
 
         <section className='tercera-seccion'>
@@ -42,7 +42,7 @@ function About() {
             <li>Profesionales que quieren mejorar sus habilidades.</li>
             <li>Personas apasionadas por compartir sus conocimientos.</li>
           </ul>
-          <img src="../../public/mochila.png" alt="mochila" />
+          <img src="mochila.png" alt="mochila" />
         </section>
 
       </main>
