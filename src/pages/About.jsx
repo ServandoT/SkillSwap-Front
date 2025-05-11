@@ -39,11 +39,13 @@ function About() {
 
         <section className='tercera-seccion'>
           <h2>¿Para quién es esta Plataforma?</h2>
-          <ul>
-            <li>Estudiantes que buscan apoyo en diferentes materias.</li>
-            <li>Profesionales que quieren mejorar sus habilidades.</li>
-            <li>Personas apasionadas por compartir sus conocimientos.</li>
-          </ul>
+          <div className="wrapper">
+            <ul>
+              <li>Estudiantes que buscan apoyo en diferentes materias.</li>
+              <li>Profesionales que quieren mejorar sus habilidades.</li>
+              <li>Personas apasionadas por compartir sus conocimientos.</li>
+            </ul>
+          </div>
           <img src="mochila.png" alt="mochila" />
         </section>
 

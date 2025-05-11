@@ -84,6 +84,7 @@
     .primera-seccion {
         margin-top: 2rem;
         width: 80%;
+        height: 292px;
         display: flex;
         position: relative;
 
@@ -115,8 +116,9 @@
     }
 
     .segunda-seccion {
-        margin-top: 350px;
         width: 80%;
+        height: 428px;
+        margin-top: 2rem;
         display: flex;
         position: relative;
 
@@ -124,7 +126,7 @@
             font-size: 40px;
             text-align: center;
             z-index: 2;
-            padding: 20px;
+            padding: 30px;
         }
 
         .wrapper {
@@ -142,6 +144,7 @@
             line-height: 1.6;
 
             ol {
+                margin-top: 1.5rem;
                 font-size: 30px;
                 padding: 20px;
             }
@@ -153,14 +156,24 @@
             width: 28%;
             height: auto;
             right: 0;
+            top: 40px;
         }
     }
 
     .tercera-seccion {
         margin-top: 100px;
         width: 80%;
+        height: 400px;
         display: flex;
         position: relative;
+
+        h2 {
+            font-size: 40px;
+            text-align: center;
+            z-index: 2;
+            padding: 30px;
+            margin-left: 400px;
+        }
 
         .wrapper {
             background-color: #FFF187;
@@ -176,8 +189,10 @@
             width: 80%;
             line-height: 1.6;
 
-            p {
+            ul {
+                margin-top: 1.5rem;
                 font-size: 30px;
+                padding: 20px;
             }
         }
 

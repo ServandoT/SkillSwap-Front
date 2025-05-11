@@ -29,6 +29,7 @@ function Header() {
     <header className='header'>
       <h1>
         <Link to="/">SkillSwap</Link>
+        <img src="../../public/principal.svg" alt="logo" />
       </h1>
       {location.pathname !== '/about' && (
         <div>

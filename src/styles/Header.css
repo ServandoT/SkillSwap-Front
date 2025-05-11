@@ -4,6 +4,17 @@
     align-items: center;
     padding: 1rem;
     background-color: #76ABAE;
+    
+    h1 {
+        display: flex;
+        align-items: center;
+    }
+
+    img {
+        width: 50px;
+        height: auto;
+        margin-top: -10px;
+    }
 
     a {
         text-decoration: none;

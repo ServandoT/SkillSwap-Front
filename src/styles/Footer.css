@@ -13,6 +13,11 @@
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
+
+        img {
+            width: 100px;
+            height: auto;
+        }
      }
 
     svg {
