@@ -6,7 +6,7 @@ function Main() {
 
   useEffect(() => {
     const token = localStorage.getItem('skillswapToken');
-    axios.get('https://localhost:1234/usuarios', {
+    axios.get('http://localhost:1234/usuarios', {
       headers: {
         Authorization: `Bearer ${token}`
       },

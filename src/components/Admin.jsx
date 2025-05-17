@@ -6,6 +6,12 @@ import '../styles/Admin.css';
 
 function Admin() {
   const [users, setUsers] = useState([]);
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [usuarioEditar, setUsuarioEditar] = useState(null);
+  const [usuarioNombre, setUsuarioNombre] = useState(null);
+  const [usuarioApellidos, setUsuarioApellidos] = useState(null);
+  const [usuarioEmail, setUsuarioEmail] = useState(null);
+  const [usuarioCreditos, setUsuarioCreditos] = useState(null);
 
   useEffect(() => {
     axios.get('http://localhost:1234/usuarios')
@@ -25,6 +31,61 @@ function Admin() {
     }
   };
 
+  const mostrarFormularioEditar = (id) => {
+    setMostrarFormulario(!mostrarFormulario);
+    setUsuarioEditar(id);
+  }
+
+  const editarUsuario = async () => {
+
+    await axios.put(`http://localhost:1234/usuarios/${usuarioEditar}`, {
+      "nombre": usuarioNombre,
+      "apellidos": usuarioApellidos,
+      "email": usuarioEmail,
+      "creditos": usuarioCreditos
+    })
+      .then(() => { 
+
+        setUsers(users.map(user =>
+          user.id === usuarioEditar
+            ? {
+              ...user,
+              nombre: usuarioNombre || user.nombre,
+              apellidos: usuarioApellidos || user.apellidos,
+              email: usuarioEmail || user.email,
+              creditos: usuarioCreditos || user.creditos
+            }
+            : user
+        ));
+        setMostrarFormulario(false);
+        setUsuarioEditar(null);
+      })
+      .catch(error => alert('Error editando usuario: ' + error));
+
+    setUsuarioNombre(null);
+    setUsuarioApellidos(null);
+    setUsuarioEmail(null);
+    setUsuarioCreditos(null);
+  }
+
+  const cambiarNombre = (e) => {
+    setUsuarioNombre(e.target.value);
+    console.log(e.target.value);
+
+  }
+
+  const cambiarApellidos = (e) => {
+    setUsuarioApellidos(e.target.value);
+  }
+
+  const cambiarEmail = (e) => {
+    setUsuarioEmail(e.target.value);
+  }
+
+  const cambiarCreditos = (e) => {
+    setUsuarioCreditos(e.target.value);
+  }
+
   return (
     <div>
       <Header />
@@ -39,6 +100,20 @@ function Admin() {
               <p><strong>Créditos:</strong> {user.creditos}</p>
               <p><strong>Rol:</strong> {user.rol === 'ADMIN' ? 'Administrador' : 'Usuario normal'}</p>
               <button className='boton-eliminar-usuario' onClick={() => handleDelete(user.id)}>Eliminar</button>
+              <button className='boton-editar-usuario' onClick={() => mostrarFormularioEditar(user.id)}>Editar</button>
+              {mostrarFormulario && user.id === usuarioEditar && (
+                <form>
+                  <label>Nombre:</label>
+                  <input type="text" defaultValue={user.nombre} onChange={(e) => cambiarNombre(e)} />
+                  <label>Apellidos:</label>
+                  <input type="text" defaultValue={user.apellidos} onChange={(e) => cambiarApellidos(e)} />
+                  <label>Email:</label>
+                  <input type="email" defaultValue={user.email} onChange={(e) => cambiarEmail(e)} />
+                  <label>Créditos:</label>
+                  <input type="number" defaultValue={user.creditos} onChange={(e) => cambiarCreditos(e)} />
+                  <button type="button" onClick={() => editarUsuario()}>Guardar</button>
+                </form>
+              )}
             </li>
           ))}
         </ul>

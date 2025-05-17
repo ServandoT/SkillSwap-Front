@@ -54,6 +54,20 @@
           background-color: #c82333;
         }
       }
+
+      .boton-editar-usuario {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
     }
   }
 }
