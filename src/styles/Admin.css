@@ -1,3 +1,7 @@
+.admin {
+  background-image: url('../../public/fondolanding.png');
+}
+
 .usuarios {
   max-width: 800px;
   margin: 2rem auto;
@@ -49,6 +53,7 @@
         border-radius: 8px;
         cursor: pointer;
         transition: background-color 0.3s;
+        margin-right: 1rem;
 
         &:hover {
           background-color: #c82333;
@@ -56,6 +61,117 @@
       }
 
       .boton-editar-usuario {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+}
+
+.categorias {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    input {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      margin-right: 1rem;
+      font-size: 1rem;
+
+      &:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      }
+    }
+
+    button {
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #343a40;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 0.5rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      background-color: #ffffff;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      transition: box-shadow 0.3s;
+      display: flex;
+      justify-content: space-between;
+
+      &:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      p {
+        margin: 0.3rem 0;
+
+        strong {
+          color: #495057;
+          width: 100px;
+          display: inline-block;
+        }
+      }
+
+      .boton-eliminar-categoria {
+        background-color: #dc3545;
+        color: #ffffff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #c82333;
+        }
+      }
+
+      .boton-editar-categoria {
         background-color: #007bff;
         color: #ffffff;
         border: none;

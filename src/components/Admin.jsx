@@ -86,8 +86,51 @@ function Admin() {
     setUsuarioCreditos(e.target.value);
   }
 
+  // Categorías
+  const [categorias, setCategorias] = useState([]);
+  const [categoria, setCategoria] = useState(null);
+  
+  useEffect(() => {
+    axios.get('http://localhost:1234/categorias')
+      .then(response => {
+        setCategorias(response.data);
+      })
+      .catch(error => console.error('Error fetching categories:', error));      
+  }, []);
+
+  const borrarCategoria = (id) => {
+    if (window.confirm('¿Estás seguro de que quieres eliminar esta categoría?')) {
+      axios.delete(`http://localhost:1234/categorias/${id}`)
+        .then(() => {
+          setCategorias(categorias.filter(categoria => categoria.id !== id));
+        })
+        .catch(error => alert('Error eliminando categoría: ' + error));
+    }
+  }
+
+  const cambiarCategoria = (e) => {
+    setCategoria(e.target.value);
+  }
+
+  const addCategoria = (e) => {
+    e.preventDefault();
+    if (categoria) {
+      axios.post('http://localhost:1234/categorias', {
+        "nombre": categoria
+      })
+        .then(response => {
+          setCategorias([...categorias, response.data]);
+          e.target.value = '';
+          setCategoria(null);
+        })
+        .catch(error => alert('Error añadiendo categoría: ' + error));
+    } else {
+      alert('Por favor, introduce un nombre para la categoría.');
+    }
+  }
+
   return (
-    <div>
+    <div className='admin'>
       <Header />
       <div className="usuarios">
         <h2>Usuarios</h2>
@@ -114,6 +157,25 @@ function Admin() {
                   <button type="button" onClick={() => editarUsuario()}>Guardar</button>
                 </form>
               )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="categorias">
+        <h2>Categorías</h2>
+
+        <form action="">
+          <label>Nueva categoría:</label>
+          <input type="text" onChange={(e) => cambiarCategoria(e)}/>
+          <button type="button" onClick={(e) => addCategoria(e)}>Añadir</button>
+        </form>
+
+        <ul>
+          {categorias.map(categoria => (
+            <li key={categoria.id}>
+              <p><strong>Nombre:</strong> {categoria.nombre}</p>
+              <button className='boton-eliminar-categoria' onClick={() => borrarCategoria(categoria.id)}>Eliminar</button>
             </li>
           ))}
         </ul>

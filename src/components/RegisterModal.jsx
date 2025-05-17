@@ -38,9 +38,9 @@ function RegisterModal({ onClose }) {
   };
 
   return (
-    <div>
-      <div>
-        <h2>Register</h2>
+    <div className="modal">
+      <div className='modal-content'>
+        <h2>Resgistro</h2>
         {error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>
           <div>

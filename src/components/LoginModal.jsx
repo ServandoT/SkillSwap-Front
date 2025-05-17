@@ -55,8 +55,8 @@ function LoginModal({ onClose }) {
   };
 
   return (
-    <div>
-      <div>
+    <div className="modal">
+      <div className="modal-content">
         <h2>Login</h2>
         {error && <p>{error}</p>}
         <form onSubmit={handleSubmit}>

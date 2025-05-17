@@ -1,4 +1,4 @@
-.header {
+/* .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,4 +21,66 @@
         color: #000;
         font-weight: bold;
     }
+} */
+
+/* TODO elegir uno de los dos */
+.header {
+  background-color: #76ABAE;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  h1 {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    gap: 0.5rem;
+
+    a {
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    img {
+      height: 40px;
+      width: auto;
+    }
+  }
+
+  div {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: #F6F4EB;
+      }
+    }
+
+    button {
+      background-color: #F6F4EB;
+      color: #333;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
 }
