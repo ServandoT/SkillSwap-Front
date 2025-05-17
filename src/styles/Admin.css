@@ -40,6 +40,20 @@
           display: inline-block;
         }
       }
+
+      .boton-eliminar-usuario {
+        background-color: #dc3545;
+        color: #ffffff;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #c82333;
+        }
+      }
     }
   }
 }

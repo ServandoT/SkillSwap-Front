@@ -15,6 +15,16 @@ function Admin() {
       .catch(error => console.error('Error fetching users:', error));
   }, []);
 
+  const handleDelete = (id) => {
+    if (window.confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+      axios.delete(`http://localhost:1234/usuarios/${id}`)
+        .then(() => {
+          setUsers(users.filter(user => user.id !== id));
+        })
+        .catch(error => alert('Error eliminando usuario: ' + error));
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -28,6 +38,7 @@ function Admin() {
               <p><strong>Apellidos:</strong> {user.apellidos}</p>
               <p><strong>Créditos:</strong> {user.creditos}</p>
               <p><strong>Rol:</strong> {user.rol === 'ADMIN' ? 'Administrador' : 'Usuario normal'}</p>
+              <button className='boton-eliminar-usuario' onClick={() => handleDelete(user.id)}>Eliminar</button>
             </li>
           ))}
         </ul>
