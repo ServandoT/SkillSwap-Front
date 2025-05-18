@@ -1,39 +1,65 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import axios from 'axios';
+import Clase from './Clase';
+import '../styles/Main.css';
 
 function Main() {
-  const [courses, setCourses] = useState([]);
+  const URL_API = import.meta.env.VITE_URL_API;
+  const [clases, setClases] = useState([]);
+  const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
-    const URL_API = import.meta.env.VITE_URL_API;
-    const token = localStorage.getItem('skillswapToken');
-    axios.get(`${URL_API}/usuarios`, {
+    axios.get(`${URL_API}/clases`, {
       headers: {
-        Authorization: `Bearer ${token}`
-      },
-      withCredentials: true
+        Authorization: '',
+      }
     })
-      .then(response => {
-        const userData = response.data;
-        setCourses(userData);
+      .then((res) => {
+        setClases(res.data);
       })
-      .catch(error => console.error('Error fetching courses:', error));
-  }, []); // Ensure the dependency array is empty to prevent repeated calls
+      .catch((error) => {
+        console.error('Error cargando las clases:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get(`${URL_API}/categorias`, {
+      headers: {
+        Authorization: '',
+      }
+    })
+      .then((res) => {
+        setCategorias(res.data);
+      })
+      .catch((error) => {
+        console.error('Error cargando las categorias:', error);
+      });
+  }, []);
+
   return (
     <main>
-      <h2>User Data</h2>
-      <ul>
-        {courses.map((user, index) => (
-          <li key={index}>
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Nombre:</strong> {user.nombre}</p>
-            <p><strong>Apellidos:</strong> {user.apellidos}</p>
-            <p><strong>Créditos:</strong> {user.creditos}</p>
-            <p><strong>Username:</strong> {user.username}</p>
-            <p><strong>Enabled:</strong> {user.enabled ? 'Yes' : 'No'}</p>
-          </li>
+
+      <div className="cabecera">
+        <h1>Nuestras Clases</h1>
+        <div className="filtros">
+          <form>
+            <select>
+              <option value="">Selecciona una categoria</option>
+              {categorias.map((categoria) => (
+                <option key={categoria.id} value={categoria.id}>
+                  {categoria.nombre}
+                </option>
+              ))}
+            </select>
+          </form>
+        </div>
+      </div>
+
+      <div className="clases">
+        {clases.map(clase => (
+          <Clase clase={clase} />
         ))}
-      </ul>
+      </div>
     </main>
   );
 }
