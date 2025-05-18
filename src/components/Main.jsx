@@ -5,8 +5,9 @@ function Main() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
+    const URL_API = import.meta.env.VITE_URL_API;
     const token = localStorage.getItem('skillswapToken');
-    axios.get('http://localhost:1234/usuarios', {
+    axios.get(`${URL_API}/usuarios`, {
       headers: {
         Authorization: `Bearer ${token}`
       },

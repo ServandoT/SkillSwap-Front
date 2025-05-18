@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function LoginModal({ onClose }) {
+  const URL_API = import.meta.env.VITE_URL_API;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -13,7 +14,7 @@ function LoginModal({ onClose }) {
     try {
       const payload = { email, password };
       console.log('Sending payload:', payload);
-      const response = await axios.post('http://localhost:1234/api/v1/auth/authenticate', payload, {
+      const response = await axios.post(`${URL_API}/api/v1/auth/authenticate`, payload, {
         headers: {
           Authorization: '',
           "Content-Type": "application/json",
@@ -22,7 +23,7 @@ function LoginModal({ onClose }) {
       console.log('Login successful:', response.data);
       localStorage.setItem('skillswapToken', response.data.token);
 
-      const res = await axios.get('http://localhost:1234/usuarios/admin', {
+      const res = await axios.get(`${URL_API}/usuarios/admin`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('skillswapToken')}`,
         }
@@ -33,7 +34,7 @@ function LoginModal({ onClose }) {
         navigate('/admin');
       }
 
-      // axios.get('http://localhost:1234/usuarios/admin')
+      // axios.get(`${URL_API}/usuarios/admin`)
       //   .then((res) => {
       //     return res.json();
       //   })

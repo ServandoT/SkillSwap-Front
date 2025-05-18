@@ -2,20 +2,19 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 function RegisterModal({ onClose }) {
+  const URL_API = import.meta.env.VITE_URL_API;
   const [nombre, setNombre] = useState('');
   const [apellidos, setApellidos] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
-  const URL_API = import.meta.env.VITE_URL_API;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // TODO cambiar la URL por localhost
       const response = await axios.post(
-        `https://172.189.57.88:1234/api/v1/auth/register`, 
+        `${URL_API}/api/v1/auth/register`, 
         {
         nombre,
         apellidos,

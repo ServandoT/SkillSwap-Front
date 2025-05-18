@@ -5,6 +5,7 @@ import Footer from './Footer';
 import '../styles/Admin.css';
 
 function Admin() {
+  const URL_API = import.meta.env.VITE_URL_API;
   const [users, setUsers] = useState([]);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [usuarioEditar, setUsuarioEditar] = useState(null);
@@ -14,7 +15,7 @@ function Admin() {
   const [usuarioCreditos, setUsuarioCreditos] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:1234/usuarios')
+    axios.get(`${URL_API}/usuarios`)
       .then(response => {
         setUsers(response.data);
       })
@@ -23,7 +24,7 @@ function Admin() {
 
   const handleDelete = (id) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-      axios.delete(`http://localhost:1234/usuarios/${id}`)
+      axios.delete(`${URL_API}/usuarios/${id}`)
         .then(() => {
           setUsers(users.filter(user => user.id !== id));
         })
@@ -38,7 +39,7 @@ function Admin() {
 
   const editarUsuario = async () => {
 
-    await axios.put(`http://localhost:1234/usuarios/${usuarioEditar}`, {
+    await axios.put(`${URL_API}/usuarios/${usuarioEditar}`, {
       "nombre": usuarioNombre,
       "apellidos": usuarioApellidos,
       "email": usuarioEmail,
@@ -91,7 +92,7 @@ function Admin() {
   const [categoria, setCategoria] = useState(null);
   
   useEffect(() => {
-    axios.get('http://localhost:1234/categorias')
+    axios.get(`${URL_API}/categorias`)
       .then(response => {
         setCategorias(response.data);
       })
@@ -100,7 +101,7 @@ function Admin() {
 
   const borrarCategoria = (id) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar esta categoría?')) {
-      axios.delete(`http://localhost:1234/categorias/${id}`)
+      axios.delete(`${URL_API}/categorias/${id}`)
         .then(() => {
           setCategorias(categorias.filter(categoria => categoria.id !== id));
         })
@@ -115,7 +116,7 @@ function Admin() {
   const addCategoria = (e) => {
     e.preventDefault();
     if (categoria) {
-      axios.post('http://localhost:1234/categorias', {
+      axios.post(`${URL_API}/categorias`, {
         "nombre": categoria
       })
         .then(response => {
