@@ -71,6 +71,7 @@ import axios from 'axios';
 import Clase from './Clase';
 import ReactPaginate from 'react-paginate';
 import '../styles/Main.css';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 function Main() {
   const URL_API = import.meta.env.VITE_URL_API;
@@ -148,11 +149,11 @@ function Main() {
       <div className="paginacion">
         <ReactPaginate
           breakLabel="..."
-          nextLabel="Siguiente >"
+          nextLabel={<FaChevronRight size={18}/>}
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           pageCount={pageCount}
-          previousLabel="< Anterior"
+          previousLabel={<FaChevronLeft size={18}/>}
           renderOnZeroPageCount={null}
           containerClassName="pagination"
           activeClassName="active"
