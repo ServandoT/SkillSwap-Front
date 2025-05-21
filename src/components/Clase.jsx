@@ -1,8 +1,7 @@
 import React from 'react';
 import '../styles/Clase.css';
 
-const Clase = ({ clase }) => {
-    console.log(clase);
+const Clase = ({ clase, onClick }) => {
     
     const puntuacion = clase.valoraciones && clase.valoraciones.length > 0
   ? clase.valoraciones.reduce((acc, val) => acc + val.puntuacion, 0) / clase.valoraciones.length
@@ -11,7 +10,7 @@ const Clase = ({ clase }) => {
 
     return (
         // TODO falta el precio
-        <div className="clase" key={clase.id}>
+        <div className="clase" onClick={onClick}>
             <h1>{clase.titulo}</h1>
             <div className="subtitulo-clase">
                 <span>{clase.profesor.nombre}</span>

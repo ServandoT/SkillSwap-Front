@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Clase from './Clase';
+import ClaseDetalle from './ClaseDetalle';
 import ReactPaginate from 'react-paginate';
 import '../styles/Main.css';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -15,6 +16,7 @@ function Main() {
   // TODO filtros
   const [ filtroNombre, setFiltroNombre ] = useState('');
   const [ filtroCategoria, setFiltroCategoria ] = useState('');
+  const [selectedClase, setSelectedClase] = useState(null);
 
 
   useEffect(() => {
@@ -84,6 +86,10 @@ function Main() {
     }
   }, [filtroCategoria]);
 
+  if (selectedClase) {
+    return <ClaseDetalle clase={selectedClase} clases={clases} onBack={() => setSelectedClase(null)} />;
+  }
+
   return (
     <main>
       <div className="cabecera">
@@ -105,7 +111,7 @@ function Main() {
 
       <div className="clases">
         {currentItems.map(clase => (
-          <Clase key={clase.id} clase={clase} />
+          <Clase key={clase.id} clase={clase} onClick={() => setSelectedClase(clase)} />
         ))}
       </div>
 
