@@ -5,7 +5,7 @@ const Clase = ({ clase, onClick }) => {
     
     const puntuacion = clase.valoraciones && clase.valoraciones.length > 0
   ? clase.valoraciones.reduce((acc, val) => acc + val.puntuacion, 0) / clase.valoraciones.length
-  : 0;
+  : 'Sin valoraciones';
 
 
     return (
@@ -24,7 +24,7 @@ const Clase = ({ clase, onClick }) => {
             <p className='descripcion-clase'>{clase.descripcion}</p>
             <p>{clase.duracion}</p>
             {/* TODO poner componente de MUI */}
-            <p>{puntuacion}</p>
+            <p>Valoración: {puntuacion}</p>
         </div>
     );
 };

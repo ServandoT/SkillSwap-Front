@@ -1,6 +1,45 @@
 .clase {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
+  width: 80vw; 
+  margin: 0 auto;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background-color: #e6e7e6;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    margin: 0;
+    color: #333;
+  }
+
+  .subtitulo-clase {
+    span {
+      font-weight: 600;
+      color: #777;
+      font-size: 1rem;
+    }
+  }
+
+  .descripcion-clase {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.4;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #444;
+  }
 }

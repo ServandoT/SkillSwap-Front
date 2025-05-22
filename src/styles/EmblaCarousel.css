@@ -1,0 +1,16 @@
+.embla {
+  overflow: hidden;
+  width: 100%;
+}
+
+.embla__container {
+  display: flex;
+  transition: transform 0.3s ease;
+  will-change: transform;
+}
+
+.embla__container > .clase {
+  flex: 0 0 25%; /* 100% / 4 = 25% para mostrar 4 elementos */
+  box-sizing: border-box;
+  padding: 10px; /* Espaciado opcional entre slides */
+}

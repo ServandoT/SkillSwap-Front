@@ -136,7 +136,7 @@ function Admin() {
       <div className="usuarios">
         <h2>Usuarios</h2>
         <ul>
-          {users.map(user => (
+          {users && users.map(user => (
             <li key={user.id}>
               <p><strong>Email:</strong> {user.email}</p>
               <p><strong>Nombre:</strong> {user.nombre}</p>
@@ -146,7 +146,7 @@ function Admin() {
               <button className='boton-eliminar-usuario' onClick={() => handleDelete(user.id)}>Eliminar</button>
               <button className='boton-editar-usuario' onClick={() => mostrarFormularioEditar(user.id)}>Editar</button>
               {mostrarFormulario && user.id === usuarioEditar && (
-                <form>
+                <form className='formulario-editar-usuario'>
                   <label>Nombre:</label>
                   <input type="text" defaultValue={user.nombre} onChange={(e) => cambiarNombre(e)} />
                   <label>Apellidos:</label>
@@ -173,7 +173,7 @@ function Admin() {
         </form>
 
         <ul>
-          {categorias.map(categoria => (
+          {categorias && categorias.map(categoria => (
             <li key={categoria.id}>
               <p><strong>Nombre:</strong> {categoria.nombre}</p>
               <button className='boton-eliminar-categoria' onClick={() => borrarCategoria(categoria.id)}>Eliminar</button>
