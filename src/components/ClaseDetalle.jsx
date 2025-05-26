@@ -8,6 +8,8 @@ import { EmblaCarousel } from './EmblaCarousel';
 const ClaseDetalle = ({ clase, clases, onBack }) => {
 
     const URL_API = import.meta.env.VITE_URL_API;
+    const [fecha, setFecha] = React.useState(null);
+
     // TODO quedarme con este modo de obtener las clases o hacer la llamada otra vez???
     // const [clases, setClases] = React.useState([]);
 
@@ -49,15 +51,64 @@ const ClaseDetalle = ({ clase, clases, onBack }) => {
     //     }
     // };
 
+    const reservarClase = () => {
+        // Comprobar que se ha seleccionado una fecha
+        if (!fecha) {
+            alert('Por favor, selecciona una fecha para reservar la clase.');
+            return;
+        }
+
+        // Comprobar que la fecha es válida
+        const fechaSeleccionada = new Date(fecha);
+        const fechaActual = new Date();
+        if (fechaSeleccionada < fechaActual) {
+            alert('La fecha seleccionada no es válida. Por favor, selecciona una fecha futura.');
+            return;
+        }
+
+        // Comprobar que la fecha no sea después de 14 días
+        const fechaLimite = new Date();
+        fechaLimite.setDate(fechaActual.getDate() + 14);
+        if (fechaSeleccionada > fechaLimite) {
+            alert('La fecha seleccionada no es válida. Por favor, selecciona una fecha dentro de los próximos 14 días.');
+            return;
+        }
+    
+        console.log('fehca' + fecha);
+        console.log('clase' + clase.id);
+        
+
+        // Realizar la reserva
+        axios.post(`${URL_API}/reservas`, {
+            fecha: fecha,
+            idClase: clase.id
+        }, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }
+        )
+        .then((res) => {
+            alert('Reserva realizada con éxito.');
+        })
+        .catch((error) => {
+            alert('Ha ocurrido un error al realizar la reserva. Por favor, inténtalo de nuevo más tarde.');
+        });
+    }
+
     return (
         <div className='clase-detalle-container'>
             <button className='enlace-volver' onClick={onBack}><FaUndo /> <p>Volver</p></button>
 
             <Clase clase={clase} className='detalle-clase' />
 
-            <button className='boton-reservar'>Reservar</button>
+            <div className="reservar-container">
+                <input type="date" className='boton-reservar' onChange={(e) => setFecha(e.target.value)} />
+                <button className='boton-reservar' onClick={() => reservarClase()}>Reservar</button>
+            </div>
 
-{/* TODO borrar carrusel anterior */}
+
+            {/* TODO borrar carrusel anterior */}
             {/* <Carousel responsive={responsive}>
                 {clases.map((clase) => (
                     <Clase key={clase.id} clase={clase} />

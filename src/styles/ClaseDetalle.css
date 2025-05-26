@@ -23,26 +23,34 @@
         }
     }
 
-    .boton-reservar {
-        all: unset;
-        background-color: #007bff;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 1.2rem;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-left: auto;
+    .reservar-container {
+        display: flex;
+        padding: 20px;
+        width: 100%;
+        max-width: 600px;
 
-        &:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-            -webkit-transform: scale();
-            -moz-transform: scale();
-            -ms-transform: scale();
-            -o-transform: scale();
+        .boton-reservar {
+            all: unset;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-left: auto;
+
+            &:hover {
+                background-color: #0056b3;
+                transform: scale(1.05);
+                -webkit-transform: scale();
+                -moz-transform: scale();
+                -ms-transform: scale();
+                -o-transform: scale();
+            }
         }
     }
+
 
     .titulo-carrusel {
         font-size: 1.2rem;
@@ -50,5 +58,5 @@
         color: #333;
     }
 
-    
+
 }
