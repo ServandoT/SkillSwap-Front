@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../styles/LoginModal.css';
 
-function LoginModal({ onClose }) {
+function LoginModal({ onClose, onLoginSuccess }) {
   const URL_API = import.meta.env.VITE_URL_API;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,8 +21,11 @@ function LoginModal({ onClose }) {
           "Content-Type": "application/json",
         },
       });
-      console.log('Login successful:', response.data);
       localStorage.setItem('skillswapToken', response.data.token);
+
+      if (onLoginSuccess) {
+        onLoginSuccess();
+      }
 
       const res = await axios.get(`${URL_API}/usuarios/admin`, {
         headers: {
@@ -34,24 +38,9 @@ function LoginModal({ onClose }) {
         navigate('/admin');
       }
 
-      // axios.get(`${URL_API}/usuarios/admin`)
-      //   .then((res) => {
-      //     return res.json();
-      //   })
-      //   .then((data) => {
-      //     console.log('isAdmin:', data.isAdmin);
-      //     // Si es admin redirigir a la página de admin
-      //     if (data.isAdmin) {
-      //       navigate('/admin');
-      //     }})
-      //     .catch((error) => { 
-      //       console.error('Error fetching admin status:', error);
-      //     });
-
       onClose();
     } catch (err) {
-      console.error('Login failed:', err);
-      setError('Invalid email or password');
+      setError('Email o contraseña incorrectos. Por favor, inténtalo de nuevo.');
     }
   };
 
@@ -59,7 +48,7 @@ function LoginModal({ onClose }) {
     <div className="modal">
       <div className="modal-content">
         <h2>Login</h2>
-        {error && <p>{error}</p>}
+        {error && <p className='error'>{error}</p>}
         <form onSubmit={handleSubmit}>
           <div>
             <label>Email</label>

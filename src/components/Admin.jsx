@@ -15,7 +15,13 @@ function Admin() {
   const [usuarioCreditos, setUsuarioCreditos] = useState(null);
 
   useEffect(() => {
-    axios.get(`${URL_API}/usuarios`)
+    axios.get(`${URL_API}/usuarios`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('skillswapToken')}`,
+        }
+      }
+    )
       .then(response => {
         setUsers(response.data);
       })
@@ -24,7 +30,13 @@ function Admin() {
 
   const handleDelete = (id) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-      axios.delete(`${URL_API}/usuarios/${id}`)
+      axios.delete(`${URL_API}/usuarios/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('skillswapToken')}`,
+          }
+        }
+      )
         .then(() => {
           setUsers(users.filter(user => user.id !== id));
         })
@@ -39,13 +51,19 @@ function Admin() {
 
   const editarUsuario = async () => {
 
+    debugger;
     await axios.put(`${URL_API}/usuarios/${usuarioEditar}`, {
       "nombre": usuarioNombre,
       "apellidos": usuarioApellidos,
       "email": usuarioEmail,
       "creditos": usuarioCreditos
-    })
-      .then(() => { 
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('skillswapToken')}`,
+        }
+      })
+      .then(() => {
 
         setUsers(users.map(user =>
           user.id === usuarioEditar
@@ -90,18 +108,24 @@ function Admin() {
   // Categorías
   const [categorias, setCategorias] = useState([]);
   const [categoria, setCategoria] = useState(null);
-  
+
   useEffect(() => {
     axios.get(`${URL_API}/categorias`)
       .then(response => {
         setCategorias(response.data);
       })
-      .catch(error => console.error('Error fetching categories:', error));      
+      .catch(error => console.error('Error fetching categories:', error));
   }, []);
 
   const borrarCategoria = (id) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar esta categoría?')) {
-      axios.delete(`${URL_API}/categorias/${id}`)
+      axios.delete(`${URL_API}/categorias/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('skillswapToken')}`,
+          }
+        }
+      )
         .then(() => {
           setCategorias(categorias.filter(categoria => categoria.id !== id));
         })
@@ -168,7 +192,7 @@ function Admin() {
 
         <form action="">
           <label>Nueva categoría:</label>
-          <input type="text" onChange={(e) => cambiarCategoria(e)}/>
+          <input type="text" onChange={(e) => cambiarCategoria(e)} />
           <button type="button" onClick={(e) => addCategoria(e)}>Añadir</button>
         </form>
 

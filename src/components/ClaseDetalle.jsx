@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FaUndo } from 'react-icons/fa';
 import '../styles/ClaseDetalle.css';
 import { EmblaCarousel } from './EmblaCarousel';
+import Swal from 'sweetalert2';
 
 const ClaseDetalle = ({ clase, clases, onBack }) => {
 
@@ -52,6 +53,7 @@ const ClaseDetalle = ({ clase, clases, onBack }) => {
     // };
 
     const reservarClase = () => {
+        debugger;
         // Comprobar que se ha seleccionado una fecha
         if (!fecha) {
             alert('Por favor, selecciona una fecha para reservar la clase.');
@@ -70,13 +72,14 @@ const ClaseDetalle = ({ clase, clases, onBack }) => {
         const fechaLimite = new Date();
         fechaLimite.setDate(fechaActual.getDate() + 14);
         if (fechaSeleccionada > fechaLimite) {
-            alert('La fecha seleccionada no es válida. Por favor, selecciona una fecha dentro de los próximos 14 días.');
+            Swal.fire({
+                title: "Fecha no válida",
+                text: "Por favor, selecciona una fecha dentro de los próximos 14 días.",
+                icon: "warning",
+                draggable: true
+            });
             return;
         }
-    
-        console.log('fehca' + fecha);
-        console.log('clase' + clase.id);
-        
 
         // Realizar la reserva
         axios.post(`${URL_API}/reservas`, {
@@ -85,15 +88,26 @@ const ClaseDetalle = ({ clase, clases, onBack }) => {
         }, {
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('skillswapToken')}`
             }
         }
         )
-        .then((res) => {
-            alert('Reserva realizada con éxito.');
-        })
-        .catch((error) => {
-            alert('Ha ocurrido un error al realizar la reserva. Por favor, inténtalo de nuevo más tarde.');
-        });
+            .then((res) => {
+                Swal.fire({
+                    title: "Reserva realizada con éxito",
+                    text: "Enlace a la videollamada: " + res.data,
+                    icon: "success",
+                    draggable: true
+                });
+            })
+            .catch((error) => {
+                Swal.fire({
+                    title: "Error al realizar la reserva",
+                    text: "Por favor, inténtalo de nuevo más tarde.",
+                    icon: "error",
+                    draggable: true
+                });
+            });
     }
 
     return (

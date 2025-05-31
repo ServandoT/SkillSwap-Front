@@ -3,11 +3,13 @@ import { Link, useLocation } from 'react-router-dom';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import '../styles/Header.css';
+import { isAuthenticated } from '../utils/ValidarJWT';
 
 function Header() {
   const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [autenticado, setAutenticado] = useState(isAuthenticated());
 
   const handleLoginClick = () => {
     setIsModalOpen(true);
@@ -25,6 +27,18 @@ function Header() {
     setIsRegisterModalOpen(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('skillswapToken');
+    setAutenticado(false);
+    window.location.href = '/';
+  }
+
+  const handleLoginSuccess = () => {
+    setAutenticado(true); // actualizar estado para ocultar botones
+    setIsModalOpen(false);
+  };
+
+
   return (
     <header className='header'>
       <h1>
@@ -37,11 +51,21 @@ function Header() {
             <Link to="/">Home</Link>
           )}
           <Link to="/about">About Us</Link>
-          <button onClick={handleLoginClick}>Login</button>
-          <button onClick={handleRegisterClick}>Register</button>
+          {autenticado ? (
+            <>
+            <Link to="/mi-perfil">Mi perfil</Link>
+            <button onClick={handleLogout}>Logout</button>
+            </>
+          ) : (
+            <>
+              <button onClick={handleLoginClick}>Login</button>
+              <button onClick={handleRegisterClick}>Register</button>
+            </>
+          )}
+
         </div>
       )}
-      {isModalOpen && <LoginModal onClose={handleCloseModal} />}
+      {isModalOpen && <LoginModal onClose={handleCloseModal} onLoginSuccess={handleLoginSuccess} />}
       {isRegisterModalOpen && <RegisterModal onClose={handleCloseRegisterModal} />}
     </header>
   );

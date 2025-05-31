@@ -1,0 +1,88 @@
+.perfil {
+    h2 {
+        font-size: 2rem;
+        color: #333;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .formulario-clase-modal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+
+        .formulario-nueva-clase {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+
+            h2 {
+                margin-top: 0;
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+                text-align: center;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 1rem;
+                font-weight: 600;
+
+                input,
+                textarea {
+                    width: 100%;
+                    padding: 0.5rem;
+                    margin-top: 0.25rem;
+                    border: 1px solid #ccc;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    resize: vertical;
+                }
+            }
+
+            button[type="submit"] {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                border-radius: 8px;
+                cursor: pointer;
+                width: 100%;
+                font-weight: bold;
+                transition: background-color 0.2s;
+
+                &:hover {
+                    background-color: #0056b3;
+                }
+            }
+        }
+
+        >button {
+            margin-top: 1rem;
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+
+}
