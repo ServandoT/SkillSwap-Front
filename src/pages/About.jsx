@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../App.css';
 import '../styles/About.css';
+import RegisterModal from '../components/RegisterModal';
 
 function About() {
+
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+
+  const handleRegisterClick = () => {
+    setIsRegisterModalOpen(!isRegisterModalOpen);
+  };
+
   return (
     <div className='app'>
       <Header />
@@ -13,8 +21,10 @@ function About() {
         <div className="hero">
           <h1>Aprende, Comparte y Crece con SkillSwap</h1>
           <p>Regístrate gratis y comienza tu biaje de aprendizaje hoy mismo</p>
-          <button>¡Accede ya!</button>
+          <button onClick={handleRegisterClick }>¡Accede ya!</button>
         </div>
+
+        {isRegisterModalOpen && <RegisterModal onClose={handleRegisterClick} />}
 
         <section className='primera-seccion'>
           <img src="/cerebro.jpg" alt="cerebro" />

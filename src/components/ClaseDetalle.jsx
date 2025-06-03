@@ -5,6 +5,7 @@ import { FaUndo } from 'react-icons/fa';
 import '../styles/ClaseDetalle.css';
 import { EmblaCarousel } from './EmblaCarousel';
 import Swal from 'sweetalert2';
+import { isAuthenticated } from '../utils/ValidarJWT';
 
 const ClaseDetalle = ({ clase, clases, onBack }) => {
 
@@ -52,8 +53,45 @@ const ClaseDetalle = ({ clase, clases, onBack }) => {
     //     }
     // };
 
+    const enviarValoracion = (puntuacion, idClase) => {
+        axios.post(`${URL_API}/valoraciones/${idClase}`, {
+            puntuacion: puntuacion
+        }, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('skillswapToken')}`
+            }
+        })
+            .then((res) => {
+                Swal.fire({
+                    title: "Valoración enviada con éxito",
+                    text: "Gracias por tu feedback.",
+                    icon: "success",
+                    draggable: true
+                });
+            })
+            .catch((error) => {
+                Swal.fire({
+                    title: "Error al enviar la valoración",
+                    text: "Por favor, inténtalo de nuevo más tarde.",
+                    icon: "error",
+                    draggable: true
+                });
+            });
+    }
+
     const reservarClase = () => {
-        debugger;
+
+        if (isAuthenticated() === false) {
+            Swal.fire({
+                title: "No has iniciado sesión",
+                text: "Por favor, inicia sesión para reservar una clase.",
+                icon: "warning",
+                draggable: true
+            });
+            return;
+        }
+
         // Comprobar que se ha seleccionado una fecha
         if (!fecha) {
             alert('Por favor, selecciona una fecha para reservar la clase.');
@@ -93,12 +131,38 @@ const ClaseDetalle = ({ clase, clases, onBack }) => {
         }
         )
             .then((res) => {
+                // Swal.fire({
+                //     title: "Reserva realizada con éxito",
+                //     text: "Enlace a la videollamada: " + res.data,
+                //     icon: "success",
+                //     draggable: true
+                // });
+
                 Swal.fire({
                     title: "Reserva realizada con éxito",
-                    text: "Enlace a la videollamada: " + res.data,
+                    html: `
+                            <p>Enlace a la videollamada: <a href="${res.data}" target="_blank">${res.data}</a></p>
+                            <hr>
+                            <label for="rating">Califica tu experiencia (0 a 5):</label><br>
+                            <input type="number" id="ratingInput" min="0" max="5" step="1" style="width: 100px; margin-top: 5px;">
+                        `,
                     icon: "success",
-                    draggable: true
+                    confirmButtonText: "Enviar puntuación",
+                    preConfirm: () => {
+                        const value = document.getElementById('ratingInput').value;
+                        if (value === "" || value < 0 || value > 5) {
+                            Swal.showValidationMessage('Por favor ingresa una puntuación entre 0 y 5');
+                            return false;
+                        }
+                        return value;
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const puntuacion = result.value;
+                        enviarValoracion(puntuacion, clase.id);
+                    }
                 });
+
             })
             .catch((error) => {
                 Swal.fire({
@@ -121,13 +185,6 @@ const ClaseDetalle = ({ clase, clases, onBack }) => {
                 <button className='boton-reservar' onClick={() => reservarClase()}>Reservar</button>
             </div>
 
-
-            {/* TODO borrar carrusel anterior */}
-            {/* <Carousel responsive={responsive}>
-                {clases.map((clase) => (
-                    <Clase key={clase.id} clase={clase} />
-                ))}
-            </Carousel> */}
             <p className='titulo-carrusel'>Otras clases</p>
             <EmblaCarousel clases={clases} />
         </div>

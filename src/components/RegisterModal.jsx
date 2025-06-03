@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function RegisterModal({ onClose }) {
   const URL_API = import.meta.env.VITE_URL_API;
@@ -29,6 +30,11 @@ function RegisterModal({ onClose }) {
       }
     );
       console.log('Registration successful:', response.data);
+      Swal.fire({
+        icon: 'success',
+        title: 'Registro exitoso',
+        text: 'Tu cuenta ha sido creada exitosamente.',
+      });
       onClose();
     } catch (err) {
       console.error('Registration failed:', err);

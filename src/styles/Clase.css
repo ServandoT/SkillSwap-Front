@@ -1,45 +1,80 @@
 .clase {
-  width: 80vw; 
-  margin: 0 auto;
+  background: linear-gradient(135deg, #ffffff, #f2f7ff);
+  border: 1px solid #ddd;
+  border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 1rem;
-  background-color: #e6e7e6;
-  box-sizing: border-box;
-  transition: transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  margin-top: 1.5rem;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  margin: 1rem auto;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(45deg, rgba(0,0,0,0.03) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.03) 50%, rgba(0,0,0,0.03) 75%, transparent 75%, transparent);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
   &:hover {
-    transform: scale(1.02);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
   }
 
   h1 {
-    font-size: 1.75rem;
-    margin: 0;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
     color: #333;
   }
 
   .subtitulo-clase {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1rem;
+
     span {
-      font-weight: 600;
-      color: #777;
-      font-size: 1rem;
+      font-weight: 500;
     }
   }
 
   .descripcion-clase {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.4;
+    font-size: 1.2rem;
+    color: #222;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 1rem;
+    border-left: 4px solid #0077cc;
+    margin-bottom: 1rem;
+    border-radius: 8px;
   }
 
   p {
-    margin: 0;
-    font-size: 0.95rem;
+    margin: 0.3rem 0;
+    font-size: 1rem;
     color: #444;
+
+    &:nth-of-type(3) {
+      font-weight: 500;
+    }
+
+    &:nth-of-type(4),
+    &:nth-of-type(5) {
+      color: #555;
+    }
   }
 }

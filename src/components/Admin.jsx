@@ -14,6 +14,17 @@ function Admin() {
   const [usuarioEmail, setUsuarioEmail] = useState(null);
   const [usuarioCreditos, setUsuarioCreditos] = useState(null);
 
+  // Comprobar si el usuario es administrador
+  if (localStorage.getItem('skillswapToken') === null || localStorage.getItem('skillswapToken') === undefined) {
+    window.location.href = '/';
+  } else {
+    const token = localStorage.getItem('skillswapToken');
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    if (payload.rol !== 'ADMIN') {
+      window.location.href = '/';
+    }
+  }
+
   useEffect(() => {
     axios.get(`${URL_API}/usuarios`,
       {
@@ -51,7 +62,6 @@ function Admin() {
 
   const editarUsuario = async () => {
 
-    debugger;
     await axios.put(`${URL_API}/usuarios/${usuarioEditar}`, {
       "nombre": usuarioNombre,
       "apellidos": usuarioApellidos,

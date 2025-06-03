@@ -48,18 +48,18 @@ function Header() {
       {location.pathname !== '/about' && (
         <div>
           {location.pathname !== '/' && (
-            <Link to="/">Home</Link>
+            <Link to="/">Inicio</Link>
           )}
-          <Link to="/about">About Us</Link>
+          <Link to="/about">Sobre nosotros</Link>
           {autenticado ? (
             <>
             <Link to="/mi-perfil">Mi perfil</Link>
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout}>Cerrar Sesión</button>
             </>
           ) : (
             <>
-              <button onClick={handleLoginClick}>Login</button>
-              <button onClick={handleRegisterClick}>Register</button>
+              <button onClick={handleLoginClick}>Iniciar Sesión</button>
+              <button onClick={handleRegisterClick}>Registrarse</button>
             </>
           )}
 

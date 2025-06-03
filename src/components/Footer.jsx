@@ -5,7 +5,7 @@ function Footer() {
     <footer className='footer'>
       <div className="primera-columna">
         <ul>
-          <li>Contacta con nosotros skillswap@gmail.com</li>
+          <li>Contacta con nosotros skillswap.daw@gmail.com</li>
           <li>Términos y condiciones</li>
           <li>SkillSwap</li>
         </ul>

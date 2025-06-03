@@ -2,6 +2,7 @@ main {
   padding-left: 70px;
   padding-right: 70px;
   background-image: url('../../public/fondolanding.png');
+  min-height: 72vh;
 }
 
 .cabecera>h1 {
@@ -49,16 +50,24 @@ main {
 
 }
 
-.clases {
+/* .clases {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  /* espacio entre elementos, opcional */
   justify-content: flex-start;
+} */
+
+.clases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .clases>* {
   flex: 0 0 calc(33.333% - 16px);
   /* no shrink (0), no grow (0), base width */
   box-sizing: border-box;
+}
+
+.clase {
+  width: 90%
 }
