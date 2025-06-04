@@ -119,8 +119,6 @@ const Perfil = () => {
             categorias: categorias
         };
 
-        alert(JSON.stringify(nuevaClase));
-
         axios.post(`${URL_API}/clases`, nuevaClase, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('skillswapToken')}`
@@ -132,7 +130,16 @@ const Perfil = () => {
                     title: 'Clase publicada',
                     text: 'Tu clase ha sido publicada correctamente.'
                 });
-                setMisClases([...misClases, res.data]);
+
+                // Cargar de nuevo las clases desde la API
+                axios.get(`${URL_API}/clases/propias`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('skillswapToken')}`
+                    }
+                }).then((res) => {
+                    setMisClases(res.data);
+                });
+
                 setMostrarFormulario(false);
                 form.reset();
             })
@@ -159,6 +166,7 @@ const Perfil = () => {
 
                 {mostrarFormulario && (
                     <div className='formulario-clase-modal-container'>
+                        <button className="boton-cancelar" onClick={() => setMostrarFormulario(!mostrarFormulario)}>Cancelar</button>
                         <h2>Publicar una nueva clase</h2>
                         <form className="formulario-nueva-clase" onSubmit={handlePublicarClase}>
                             <h2>Publica una nueva clase</h2>
@@ -201,7 +209,7 @@ const Perfil = () => {
                             </label>
                             <button type="submit">Publicar</button>
                         </form>
-                        <button onClick={() => setMostrarFormulario(!mostrarFormulario)}>Cancelar</button>
+
                     </div>
                 )}
 
@@ -213,7 +221,7 @@ const Perfil = () => {
                             <Clase key={clase.id} clase={clase} />
                         ))
                     ) : (
-                        <p>¡Publica una clase propia ya!</p>
+                        <p className="aviso">¡Publica una clase propia ya!</p>
                     )}
                 </div>
 
@@ -221,12 +229,13 @@ const Perfil = () => {
                 <div className="mis-reservas">
                     {reservas.length > 0 ? (
                         reservas.map((reserva) =>
-                            reserva.clase ? (
-                                <Clase key={reserva.id} clase={reserva.clase} />
-                            ) : null
+                            <div className="reserva" key={reserva.id}>
+                                <h3>{reserva.tituloClase}</h3>
+                                <p>{new Date(reserva.fecha).toLocaleDateString('es-ES')}</p>
+                            </div>
                         )
                     ) : (
-                        <p>No tienes reservas activas.</p>
+                        <p className="aviso">No tienes reservas activas.</p>
                     )}
 
                 </div>

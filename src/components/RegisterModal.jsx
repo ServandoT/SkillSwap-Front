@@ -85,8 +85,8 @@ function RegisterModal({ onClose }) {
             />
           </div>
           <div>
-            <button type="button" onClick={onClose}>Cancel</button>
-            <button type="submit">Register</button>
+            <button type="button" onClick={onClose}>Cancelar</button>
+            <button type="submit">Registrarse</button>
           </div>
         </form>
       </div>

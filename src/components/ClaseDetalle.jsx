@@ -12,47 +12,6 @@ const ClaseDetalle = ({ clase, clases, onBack }) => {
     const URL_API = import.meta.env.VITE_URL_API;
     const [fecha, setFecha] = React.useState(null);
 
-    // TODO quedarme con este modo de obtener las clases o hacer la llamada otra vez???
-    // const [clases, setClases] = React.useState([]);
-
-    // TODO borrar
-    // useEffect(() => {
-    //     axios.get(`${URL_API}/clases`,
-    //         {
-    //             headers: {
-    //                 Authorization: '',
-    //             }
-    //         }
-    //     )
-    //         .then((res) => {
-    //             setClases(res.data);
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error cargando las clases:', error);
-    //         });
-    // }, []);
-
-    // TODO primer carrusel
-    // const responsive = {
-    //     superLargeDesktop: {
-    //         // the naming can be any, depends on you.
-    //         breakpoint: { max: 4000, min: 3000 },
-    //         items: 5
-    //     },
-    //     desktop: {
-    //         breakpoint: { max: 3000, min: 1024 },
-    //         items: 3
-    //     },
-    //     tablet: {
-    //         breakpoint: { max: 1024, min: 464 },
-    //         items: 2
-    //     },
-    //     mobile: {
-    //         breakpoint: { max: 464, min: 0 },
-    //         items: 1
-    //     }
-    // };
-
     const enviarValoracion = (puntuacion, idClase) => {
         axios.post(`${URL_API}/valoraciones/${idClase}`, {
             puntuacion: puntuacion
@@ -95,6 +54,12 @@ const ClaseDetalle = ({ clase, clases, onBack }) => {
         // Comprobar que se ha seleccionado una fecha
         if (!fecha) {
             alert('Por favor, selecciona una fecha para reservar la clase.');
+            Swal.fire({
+                title: "Fecha no seleccionada",
+                text: "Por favor, selecciona una fecha para reservar la clase.",
+                icon: "warning",
+                draggable: true
+            });
             return;
         }
 
@@ -102,7 +67,12 @@ const ClaseDetalle = ({ clase, clases, onBack }) => {
         const fechaSeleccionada = new Date(fecha);
         const fechaActual = new Date();
         if (fechaSeleccionada < fechaActual) {
-            alert('La fecha seleccionada no es válida. Por favor, selecciona una fecha futura.');
+            Swal.fire({
+                title: "Fecha no válida",
+                text: "Por favor, selecciona una fecha entre los proximos 14 días.",
+                icon: "warning",
+                draggable: true
+            });
             return;
         }
 
@@ -131,13 +101,6 @@ const ClaseDetalle = ({ clase, clases, onBack }) => {
         }
         )
             .then((res) => {
-                // Swal.fire({
-                //     title: "Reserva realizada con éxito",
-                //     text: "Enlace a la videollamada: " + res.data,
-                //     icon: "success",
-                //     draggable: true
-                // });
-
                 Swal.fire({
                     title: "Reserva realizada con éxito",
                     html: `

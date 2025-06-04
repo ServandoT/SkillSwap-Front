@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
 import '../styles/Admin.css';
+import Swal from 'sweetalert2';
 
 function Admin() {
   const URL_API = import.meta.env.VITE_URL_API;
@@ -15,15 +16,30 @@ function Admin() {
   const [usuarioCreditos, setUsuarioCreditos] = useState(null);
 
   // Comprobar si el usuario es administrador
-  if (localStorage.getItem('skillswapToken') === null || localStorage.getItem('skillswapToken') === undefined) {
-    window.location.href = '/';
-  } else {
+  (async () => {
     const token = localStorage.getItem('skillswapToken');
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    if (payload.rol !== 'ADMIN') {
+
+    if (!token) {
       window.location.href = '/';
+      return;
     }
-  }
+
+    try {
+      const res = await axios.get(`${URL_API}/usuarios/admin`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.data.isAdmin) {
+        window.location.href = '/';
+      }
+    } catch (error) {
+      console.error('Error verificando admin:', error);
+      window.location.href = '/'; // También rediriges si hay error (opcional)
+    }
+  })();
+
 
   useEffect(() => {
     axios.get(`${URL_API}/usuarios`,
@@ -74,6 +90,14 @@ function Admin() {
         }
       })
       .then(() => {
+
+        Swal.fire({
+          title: "Usuario editado correctamente",
+          text: "Los cambios se han guardado con éxito.",
+          icon: "success",
+          draggable: true
+        }
+        )
 
         setUsers(users.map(user =>
           user.id === usuarioEditar
@@ -150,17 +174,29 @@ function Admin() {
   const addCategoria = (e) => {
     e.preventDefault();
     if (categoria) {
-      axios.post(`${URL_API}/categorias`, {
-        "nombre": categoria
-      })
+      axios.post(
+        `${URL_API}/categorias`,
+        { nombre: categoria }, // cuerpo (data)
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('skillswapToken')}`
+          }
+        }
+      )
         .then(response => {
           setCategorias([...categorias, response.data]);
           e.target.value = '';
           setCategoria(null);
         })
         .catch(error => alert('Error añadiendo categoría: ' + error));
+
     } else {
-      alert('Por favor, introduce un nombre para la categoría.');
+      Swal.fire({
+        title: "Error",
+        text: "Por favor, introduce un nombre para la categoría.",
+        icon: "error",
+        draggable: true
+      });
     }
   }
 
