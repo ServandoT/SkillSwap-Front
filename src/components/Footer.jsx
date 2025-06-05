@@ -11,7 +11,7 @@ function Footer() {
         </ul>
       </div>
       <div className="segunda-columna">
-        <img src="../../public/principal.svg" alt="logo" />
+        <img src="/principal.svg" alt="logo" />
       </div>
       <div className="tercera-columna">
         <ul>
